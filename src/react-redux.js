@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ThemeContext from './themeContext';
+import { createStore } from './createStore';
+
 
 export const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponent) => {
   class Connect extends Component {
@@ -39,4 +41,13 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponen
   Connect.contextType = ThemeContext;
 
   return Connect;
+}
+
+
+export const Provider = ({ children, store }) => {
+  return (
+    <ThemeContext.Provider value={store}>
+      {children}
+    </ThemeContext.Provider>
+  )
 }

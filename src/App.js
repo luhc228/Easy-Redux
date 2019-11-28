@@ -3,7 +3,7 @@ import Header from './Header';
 import Content from './Content'
 import themeReducer from './reducers/themeReducer';
 import { createStore } from './createStore';
-import ThemeContext from './themeContext';
+import { Provider } from './react-redux';
 
 const themeStore = createStore(themeReducer);
 
@@ -11,10 +11,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <ThemeContext.Provider value={themeStore}>
+      <Provider store={themeStore}>
         <Header />
         <Content />
-      </ThemeContext.Provider>
+      </Provider>
     )
   }
 }
