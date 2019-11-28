@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ThemeContext from './themeContext';
+import { connect } from './react-redux';
 
 class ThemeSwitch extends Component {
   constructor() {
@@ -9,19 +10,20 @@ class ThemeSwitch extends Component {
 
   componentDidMount() {
     this._updateThemeColor();
-    const themeStore = this.context;
-    themeStore.subscribe(() => this._updateThemeColor());
+    const store = this.context;
+    // subscribe the data change
+    store.subscribe(() => this._updateThemeColor());
   }
 
   _updateThemeColor() {
-    const themeStore = this.context;
-    const state = themeStore.getState();
+    const store = this.context;
+    const state = store.getState();
     this.setState({ themeColor: state.themeColor })
   }
 
   handleSwitchColor(color) {
-    const themeStore = this.context;
-    themeStore.dispatch({
+    const store = this.context;
+    store.dispatch({
       type: 'CHANGE_COLOR',
       themeColor: color
     })
@@ -49,4 +51,18 @@ class ThemeSwitch extends Component {
 
 ThemeSwitch.contextType = ThemeContext;
 
-export default ThemeSwitch;
+const mapStateToProps = (state) => {
+  return {
+    themeColor: state.themeColor
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSwitchColor: (color) => {
+      dispatch({ type: 'CHANGE_COLOR', themeColor: color })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ThemeSwitch);

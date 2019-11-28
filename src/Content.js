@@ -23,6 +23,10 @@ Content.propTypes = {
   store: PropTypes.object,
 }
 
+/**
+ * what data you exactly need
+ * @param {*} state 
+ */
 const mapStateToProps = (state) => {
   return {
     themeColor: state.themeColor

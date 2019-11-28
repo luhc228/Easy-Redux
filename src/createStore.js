@@ -4,6 +4,10 @@ export const createStore = (reducer) => {
 
   const listeners = []
 
+  /**
+   * subscribe the data update
+   * @param {*} listener 
+   */
   const subscribe = (listener) => {
     listeners.push(listener)
   }
